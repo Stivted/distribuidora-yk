@@ -525,6 +525,19 @@ img {
     overflow-wrap: anywhere;
 }
 
+/* Precio del producto */
+
+.product-card__price {
+    width: 100%;
+    margin-bottom: 14px;
+
+    color: var(--primary-dark);
+    font-size: 1.45rem;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
 .product-card__description {
     width: 100%;
     margin-bottom: 20px;
@@ -906,6 +919,10 @@ img {
     .catalog-header__container {
         width: calc(100% - 20px);
         gap: 7px;
+    }
+
+    .product-card__price {
+    font-size: 1.35rem;
     }
 
     .catalog-header__brand span {

@@ -53,13 +53,29 @@ function normalizeText(text) {
 }
 
 // ==================================================
+// FORMATEAR PRECIOS
+// ==================================================
+
+function formatPrice(price) {
+    return new Intl.NumberFormat("es-CO", {
+        style: "currency",
+        currency: "COP",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(price);
+}
+
+// ==================================================
 // 4. CREAR ENLACE DE WHATSAPP
 // ==================================================
 
-function createWhatsAppLink(productName) {
+function createWhatsAppLink(productName, productPrice) {
+    const formattedPrice = formatPrice(productPrice);
+
     const message =
         `Hola Marcelo, vi el catálogo de Distribuidora Y&K ` +
-        `y deseo recibir información sobre el producto: ${productName}.`;
+        `y deseo recibir información sobre el producto: ` +
+        `${productName}, publicado por ${formattedPrice}.`;
 
     return (
         `https://wa.me/${whatsappNumber}` +
@@ -141,6 +157,10 @@ function createProductCard(product) {
     title.className = "product-card__title";
     title.textContent = product.nombre;
 
+    const price = document.createElement("p");
+    price.className = "product-card__price";
+    price.textContent = formatPrice(product.precio);    
+
     const description = document.createElement("p");
 
     description.className =
@@ -155,8 +175,10 @@ function createProductCard(product) {
     whatsappLink.className =
         "product-card__button";
 
-    whatsappLink.href =
-        createWhatsAppLink(product.nombre);
+    whatsappLink.href = createWhatsAppLink(
+        product.nombre,
+        product.precio
+    );
 
     whatsappLink.target = "_blank";
     whatsappLink.rel = "noopener noreferrer";
@@ -171,6 +193,7 @@ function createProductCard(product) {
 
     content.appendChild(label);
     content.appendChild(title);
+    content.appendChild(price);
     content.appendChild(description);
     content.appendChild(whatsappLink);
 
